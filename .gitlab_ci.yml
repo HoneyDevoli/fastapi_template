@@ -1,0 +1,30 @@
+variables:
+  UV_VERSION: 0.5
+  PYTHON_VERSION: 3.12.8
+  BASE_LAYER: bookworm-slim
+
+stages:
+  - lint
+  - test
+
+lint_code:
+  stage: lint
+  image: ghcr.io/astral-sh/uv:$UV_VERSION-python$PYTHON_VERSION-$BASE_LAYER
+  before_script:
+    - uv sync
+  script:
+    - ruff check --output-format=gitlab > code-quality-report.json
+  only:
+    - merge_requests
+    - branches
+
+run_tests:
+  stage: test
+  image: ghcr.io/astral-sh/uv:$UV_VERSION-python$PYTHON_VERSION-$BASE_LAYER
+  before_script:
+    - uv sync
+  script:
+    - pytest --disable-warnings /tests/
+  only:
+    - merge_requests
+    - branches
