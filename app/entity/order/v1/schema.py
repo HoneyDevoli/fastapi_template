@@ -1,5 +1,5 @@
 
-from app.entity.address.schema import AddressSchema
+from app.entity.address.v1.schema import AddressSchema
 from app.entity.base.schema import BaseSchema
 from app.entity.order.db import OrderOrm
 
