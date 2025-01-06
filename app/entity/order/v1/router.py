@@ -2,7 +2,7 @@ from fastapi import Depends, APIRouter
 from starlette.status import HTTP_201_CREATED
 
 from app.entity.base.pageable import PageRequestSchema, PageResponseSchema
-from app.entity.order.schema import OrderOut, OrderIn
+from app.entity.order.v1.schema import OrderOut, OrderIn
 from app.entity.order.service import OrderService
 
 router = APIRouter(prefix="/api/v1", tags=["Order"])
