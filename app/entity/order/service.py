@@ -1,7 +1,6 @@
-from typing import List, Tuple
 
-from app.entity.order.db import OrderOrm
 from app.entity.base.pageable import PageRequestSchema
+from app.entity.order.db import OrderOrm
 from app.entity.order.repository import OrderRepository
 
 
@@ -24,5 +23,5 @@ class OrderService:
         order.price = updated_order.price
         return self.order_repo.save(order)
 
-    def get_paged_orders(self, pageable: PageRequestSchema) -> Tuple[List, int]:
+    def get_paged_orders(self, pageable: PageRequestSchema) -> tuple[list, int]:
         return self.order_repo.get_paged_items(pageable, {})

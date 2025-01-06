@@ -2,10 +2,11 @@ import random
 import string
 
 from sqlalchemy import (
+    BigInteger,
     Column,
-    String,
     Float,
-    ForeignKey, BigInteger,
+    ForeignKey,
+    String,
 )
 from sqlalchemy.orm import relationship
 

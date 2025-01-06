@@ -1,7 +1,5 @@
 from __future__ import annotations
 
-from typing import Optional
-
 from pydantic import constr
 
 from app.entity.address.db import AddressOrm
@@ -17,10 +15,10 @@ class AddressSchema(BaseSchema):
 
     address_1: str | None = None
     address_2: str | None = None
-    city: Optional[str]
-    state_province: Optional[str]
-    country: Optional[str]
+    city: str | None
+    state_province: str | None
+    country: str | None
     postal_code: constr(min_length=5, max_length=10)
-    timezone: Optional[str]
+    timezone: str | None
     latitude: float
     longitude: float

@@ -1,22 +1,20 @@
-from datetime import datetime, timezone
-from typing import Optional
+from datetime import UTC, datetime
 
-from pydantic import BaseModel
-from pydantic import Field
+from pydantic import BaseModel, Field
 
 from app.entity.base.db import BaseOrm
 
 
 def utc_now() -> datetime:
-    return datetime.now(timezone.utc)
+    return datetime.now(UTC)
 
 class BaseSchema(BaseModel):
     __orm__ = None
     __transient_fields__ = ["id", "created_at", "updated_at"]
 
-    id: Optional[int] = Field(default=None, read_only=True)
-    created_at: Optional[datetime] = Field(default_factory=utc_now)
-    updated_at: Optional[datetime] = Field(default_factory=utc_now)
+    id: int | None = Field(default=None, read_only=True)
+    created_at: datetime | None = Field(default_factory=utc_now)
+    updated_at: datetime | None = Field(default_factory=utc_now)
 
     def to_orm(self):
         if not self.__orm__:
@@ -36,7 +34,7 @@ class BaseSchema(BaseModel):
                             setattr(orm, key, value.to_orm())
                         elif value is not None and key not in self.__transient_fields__:
                             setattr(orm, key, value)
-                    except AttributeError as e:
+                    except AttributeError:
                         pass
 
         set_val(None, self)

@@ -1,7 +1,7 @@
 from enum import Enum
 
-from pydantic import  Field, field_validator
-from pydantic_settings import SettingsConfigDict, BaseSettings
+from pydantic import Field, field_validator
+from pydantic_settings import BaseSettings, SettingsConfigDict
 from uvicorn.config import LOG_LEVELS
 
 

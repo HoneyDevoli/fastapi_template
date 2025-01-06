@@ -30,7 +30,7 @@ exclude = ["venv", ".venv", "alembic", "migrations"]
 
 [tool.ruff]
 target-version = "py312"
-exclude = ["alembic"]
+exclude = ["migrations", "alembic", "venv", ".venv"]
 
 [tool.ruff.lint]
 select = [

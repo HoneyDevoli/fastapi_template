@@ -3,9 +3,8 @@ import os
 import sys
 import zipfile
 from datetime import datetime
-from logging import Logger
-from logging import LogRecord
-from logging.handlers import TimedRotatingFileHandler, RotatingFileHandler
+from logging import Logger, LogRecord
+from logging.handlers import RotatingFileHandler, TimedRotatingFileHandler
 
 from app.config.settings import settings
 

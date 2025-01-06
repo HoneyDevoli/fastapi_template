@@ -1,8 +1,8 @@
-from fastapi import status, APIRouter, Depends
+from fastapi import APIRouter, Depends, status
 from fastapi.responses import JSONResponse
 
-from app.entity.base.deps import get_settings
 from app.config.settings import Settings
+from app.entity.base.deps import get_settings
 
 router = APIRouter(tags=["System"])
 

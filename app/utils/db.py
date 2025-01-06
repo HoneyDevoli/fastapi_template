@@ -1,6 +1,6 @@
 import logging
+from collections.abc import Generator
 from contextlib import contextmanager
-from typing import Generator
 
 from psycopg import OperationalError
 from sqlalchemy import create_engine, text

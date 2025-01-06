@@ -1,7 +1,7 @@
 from sqlalchemy import (
     Column,
-    String,
     Float,
+    String,
 )
 
 from app.entity.base.db import BaseOrm

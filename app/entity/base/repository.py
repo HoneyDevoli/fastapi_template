@@ -1,7 +1,7 @@
 import logging
 from typing import Type
 
-from sqlalchemy.exc import IntegrityError, ProgrammingError, NoResultFound
+from sqlalchemy.exc import IntegrityError, NoResultFound, ProgrammingError
 
 from app.entity.base.db import BaseOrm
 from app.utils.db import get_db

@@ -1,10 +1,7 @@
-from contextlib import contextmanager
-from datetime import datetime, timezone
-from typing import Generator
+from datetime import UTC, datetime
 
 import sqlalchemy as sa
-from sqlalchemy import Column, DateTime, BigInteger
-from sqlalchemy import MetaData
+from sqlalchemy import BigInteger, Column, DateTime, MetaData
 from sqlalchemy.orm import declarative_base
 
 """
@@ -35,7 +32,7 @@ class BaseOrm(Base):
     updated_at = Column(
         DateTime(timezone=True),
         nullable=False,
-        onupdate=datetime.now(timezone.utc),
+        onupdate=datetime.now(UTC),
         server_default=sa.text("CURRENT_TIMESTAMP"),
     )
 

@@ -2,16 +2,16 @@ from contextlib import asynccontextmanager
 
 from fastapi import FastAPI
 from fastapi.exceptions import RequestValidationError
-from pydantic import ValidationError
-from httpx import HTTPError
-from sqlalchemy.exc import IntegrityError, ProgrammingError, NoResultFound
-from starlette.exceptions import HTTPException
 from fastapi.middleware.cors import CORSMiddleware
+from httpx import HTTPError
+from pydantic import ValidationError
+from sqlalchemy.exc import IntegrityError, NoResultFound, ProgrammingError
+from starlette.exceptions import HTTPException
 
-from app.entity.main_router import main_router
 from app.config import exception_config as exh
 from app.config.log_config import config_logging_dev, config_logging_prod
 from app.config.settings import Environment, settings
+from app.entity.main_router import main_router
 from app.utils import db
 
 

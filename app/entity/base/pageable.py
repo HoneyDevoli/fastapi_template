@@ -1,16 +1,15 @@
 from math import ceil
-from typing import List, Generic, Optional, TypeVar
-from typing import Literal
+from typing import Generic, Literal, TypeVar
 
 from pydantic import BaseModel, field_validator
 from sqlalchemy.orm import Query
 
 
 class PageRequestSchema(BaseModel):
-    page: Optional[int] = 1
-    size: Optional[int] = 25
-    sort: Optional[str] = 'created_at'
-    order: Optional[Literal['ASC', 'DESC']] = 'DESC'
+    page: int | None = 1
+    size: int | None = 25
+    sort: str | None = 'created_at'
+    order: Literal['ASC', 'DESC'] | None = 'DESC'
 
     @property
     def offset(self):
@@ -25,10 +24,10 @@ ResponseDataType = TypeVar('ResponseDataType')
 
 
 class PageResponseSchema(BaseModel, Generic[ResponseDataType]):
-    data: List[ResponseDataType]
+    data: list[ResponseDataType]
     total_count: int
     page_size: int
-    total_pages: Optional[int] = None
+    total_pages: int | None = None
 
     @field_validator('page_size')
     def validate_page_size(cls, value: int) -> int:
@@ -37,7 +36,7 @@ class PageResponseSchema(BaseModel, Generic[ResponseDataType]):
         return value
 
     @field_validator('total_pages', mode='after')  # Ensure it runs after other validators.
-    def calculate_pages(cls, value: Optional[int], values: dict) -> int:
+    def calculate_pages(cls, value: int | None, values: dict) -> int:
         # Safely grab validated fields from 'values'
         total_count = values.get('total_count', 0)
         page_size = values.get('page_size')
