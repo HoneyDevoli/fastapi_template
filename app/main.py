@@ -42,7 +42,7 @@ def custom_exception_handler(app: FastAPI):
 
 def create_application() -> FastAPI:
     application = FastAPI(
-        title="Template FastAPI",
+        title='Template FastAPI',
         debug=settings.is_dev,
         lifespan=lifespan,
     )
@@ -54,20 +54,20 @@ def create_application() -> FastAPI:
     application.include_router(main_router)
     application.add_middleware(
         CORSMiddleware,
-        allow_origins=["*"],
+        allow_origins=['*'],
         allow_credentials=True,
-        allow_methods=["*"],
-        allow_headers=["*"],
+        allow_methods=['*'],
+        allow_headers=['*'],
     )
 
     return application
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     import uvicorn
 
     uvicorn.run(
-        "app.main:create_application",
+        'app.main:create_application',
         factory=True,
         host=settings.global_.host,
         port=settings.global_.port,

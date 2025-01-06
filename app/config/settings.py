@@ -6,22 +6,22 @@ from uvicorn.config import LOG_LEVELS
 
 
 class Environment(Enum):
-    dev: str = "dev"
-    prod: str = "prod"
+    dev: str = 'dev'
+    prod: str = 'prod'
 
 
 class DatabaseSettings(BaseSettings):
-    name: str = "fastapi_db"
-    user: str = "postgres"
-    password: str = "postgres"
-    host: str = "0.0.0.0"
+    name: str = 'fastapi_db'
+    user: str = 'postgres'
+    password: str = 'postgres'
+    host: str = '0.0.0.0'
     port: int = 5432
     echo: bool
     echo_pool: bool
 
     @property
     def url(self) -> str:
-        return f"postgresql+psycopg://{self.user}:{self.password}@{self.host}:{self.port}/{self.name}"
+        return f'postgresql+psycopg://{self.user}:{self.password}@{self.host}:{self.port}/{self.name}'
 
 
 class LogSettings(BaseSettings):
@@ -34,10 +34,10 @@ class LogSettings(BaseSettings):
     def log_level_upper(self) -> str:
         return self.log_level.upper()
 
-    @field_validator("log_level")
+    @field_validator('log_level')
     def valid_loglevel(cls, level: str) -> str:
         if level not in LOG_LEVELS.keys():
-            raise ValueError(f"log_level must be one of {LOG_LEVELS.keys()}")
+            raise ValueError(f'log_level must be one of {LOG_LEVELS.keys()}')
         return level
 
 
@@ -58,5 +58,6 @@ class Settings(BaseSettings):
     @property
     def is_dev(self) -> bool:
         return self.global_.environment == Environment.dev
+
 
 settings: Settings = Settings()

@@ -16,7 +16,7 @@ class PageRequestSchema(BaseModel):
         return (self.page - 1) * self.size
 
     def build(self, query: Query, sort):
-        sort = sort.asc() if self.order == "ASC" else sort.desc()
+        sort = sort.asc() if self.order == 'ASC' else sort.desc()
         return query.order_by(sort).limit(self.size).offset(self.offset)
 
 
@@ -32,7 +32,7 @@ class PageResponseSchema(BaseModel, Generic[ResponseDataType]):
     @field_validator('page_size')
     def validate_page_size(cls, value: int) -> int:
         if value <= 0:
-            raise ValueError("page_size must be greater than 0")
+            raise ValueError('page_size must be greater than 0')
         return value
 
     @field_validator('total_pages', mode='after')  # Ensure it runs after other validators.
@@ -43,6 +43,6 @@ class PageResponseSchema(BaseModel, Generic[ResponseDataType]):
 
         # Check for invalid page_size
         if page_size is None or page_size <= 0:
-            raise ValueError("page_size must be a positive integer.")
+            raise ValueError('page_size must be a positive integer.')
 
         return ceil(total_count / page_size) if total_count > 0 else 1

@@ -1,5 +1,4 @@
 import logging
-from typing import Type
 
 from sqlalchemy.exc import IntegrityError, NoResultFound, ProgrammingError
 
@@ -12,7 +11,7 @@ logger = logging.getLogger(__name__)
 class BaseRepository:
     __abstract__ = True
 
-    def __init__(self, model: Type[BaseOrm]):
+    def __init__(self, model: type[BaseOrm]):
         self.__model__ = model
 
     def save(self, data):

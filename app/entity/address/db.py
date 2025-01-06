@@ -8,7 +8,7 @@ from app.entity.base.db import BaseOrm
 
 
 class AddressOrm(BaseOrm):
-    __tablename__ = "addresses"
+    __tablename__ = 'addresses'
 
     address_1 = Column(String)
     address_2 = Column(String)
@@ -19,5 +19,3 @@ class AddressOrm(BaseOrm):
     timezone = Column(String)
     latitude = Column(Float, nullable=False)
     longitude = Column(Float, nullable=False)
-
-

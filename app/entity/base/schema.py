@@ -8,9 +8,10 @@ from app.entity.base.db import BaseOrm
 def utc_now() -> datetime:
     return datetime.now(UTC)
 
+
 class BaseSchema(BaseModel):
     __orm__ = None
-    __transient_fields__ = ["id", "created_at", "updated_at"]
+    __transient_fields__ = ['id', 'created_at', 'updated_at']
 
     id: int | None = Field(default=None, read_only=True)
     created_at: datetime | None = Field(default_factory=utc_now)
@@ -18,7 +19,7 @@ class BaseSchema(BaseModel):
 
     def to_orm(self):
         if not self.__orm__:
-            raise NotImplementedError("Error __orm__ class not set")
+            raise NotImplementedError('Error __orm__ class not set')
 
         orm = self.__orm__()
 

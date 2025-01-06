@@ -1,4 +1,3 @@
-
 from app.entity.address.v1.schema import AddressSchema
 from app.entity.base.schema import BaseSchema
 from app.entity.order.db import OrderOrm
@@ -15,7 +14,7 @@ class OrderIn(BaseSchema):
 
 class OrderOut(OrderIn):
     model_config = {
-        "from_attributes": True,  # Включаем поддержку объектов ORM
+        'from_attributes': True,  # Включаем поддержку объектов ORM
     }
 
     order_number: str | None

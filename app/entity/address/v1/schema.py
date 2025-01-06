@@ -10,7 +10,7 @@ class AddressSchema(BaseSchema):
     __orm__ = AddressOrm
 
     model_config = {
-        "from_attributes": True,
+        'from_attributes': True,
     }
 
     address_1: str | None = None

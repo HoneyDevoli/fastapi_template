@@ -10,8 +10,10 @@ from app.config.settings import settings
 
 LOG_FORMAT = '%(asctime)s.%(msecs)03d|%(levelname)s|%(thread)5s|%(name)-25.25s|%(message)s'
 
+
 class StreamHandlerFilter(logging.Filter):
     """Filters loggers by name for console output."""
+
     loggers_to_filter = [
         'paramiko.transport',
         'urllib3.connectionpool',
@@ -31,11 +33,13 @@ class StreamHandlerFilter(logging.Filter):
 def _get_uvicorn_loggers() -> tuple[Logger, Logger]:
     return logging.getLogger('uvicorn.error'), logging.getLogger('uvicorn.access')
 
+
 def archive_log(log_path):
-    zip_path = f"{log_path}.zip"
-    with zipfile.ZipFile(zip_path, "w", zipfile.ZIP_DEFLATED) as zipf:
+    zip_path = f'{log_path}.zip'
+    with zipfile.ZipFile(zip_path, 'w', zipfile.ZIP_DEFLATED) as zipf:
         zipf.write(log_path, os.path.basename(log_path))
     os.remove(log_path)
+
 
 class CustomTimedRotatingFileHandler(TimedRotatingFileHandler):
     def __init__(self, *args, **kwargs):
@@ -44,7 +48,8 @@ class CustomTimedRotatingFileHandler(TimedRotatingFileHandler):
     def doRollover(self):
         super().doRollover()
         if not self.delay:
-            archive_log(self.baseFilename + "." + self.suffix)
+            archive_log(self.baseFilename + '.' + self.suffix)
+
 
 class CustomRotatingFileHandler(RotatingFileHandler):
     def __init__(self, *args, **kwargs):
@@ -52,13 +57,14 @@ class CustomRotatingFileHandler(RotatingFileHandler):
 
     def doRollover(self):
         super().doRollover()
-        archive_log(self.baseFilename + ".1")
+        archive_log(self.baseFilename + '.1')
+
 
 def config_logging_dev():
     log_settings = settings.log
     log_dir = log_settings.logs_path
     os.makedirs(log_dir, exist_ok=True)
-    log_file = os.path.join(log_dir, f"{datetime.now():%Y-%m-%d-%H-%M-%S}.log")
+    log_file = os.path.join(log_dir, f'{datetime.now():%Y-%m-%d-%H-%M-%S}.log')
 
     # Основной логгер
     root_logger = logging.getLogger()
@@ -69,7 +75,7 @@ def config_logging_dev():
 
     # Time-based rotating file handler
     time_handler = CustomTimedRotatingFileHandler(
-        filename=log_file, when="midnight", interval=1, backupCount=log_settings.max_log_files
+        filename=log_file, when='midnight', interval=1, backupCount=log_settings.max_log_files
     )
     time_handler.setLevel(log_settings.log_level_upper)
     time_handler.setFormatter(file_formatter)
@@ -101,7 +107,7 @@ def config_logging_dev():
             uvicorn_logger.addHandler(console_handler)
 
     # Настройка логгера для sqlalchemy
-    sqlalchemy_logger = logging.getLogger("sqlalchemy.engine")
+    sqlalchemy_logger = logging.getLogger('sqlalchemy.engine')
     sqlalchemy_logger.propagate = False
 
 
