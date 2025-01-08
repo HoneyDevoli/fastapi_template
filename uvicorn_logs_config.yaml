@@ -1,0 +1,29 @@
+version: 1
+
+disable_existing_loggers: False
+
+formatters:
+  default:
+    format: '%(asctime)s.%(msecs)03d 🐍 %(levelname)s 🐍 %(thread)5s 🐍 %(name)-25.25s 🐍 %(message)s'
+
+handlers:
+  default:
+    formatter: default
+    class: logging.StreamHandler
+    stream: ext://sys.stderr
+  devnull:
+    class: logging.NullHandler
+
+root:
+  handlers:
+    - default
+
+loggers:
+  # алхимию говнари писали и логируют что-то только если echo=True
+  # а если echo=True, алхимия создает свой дефолтный логер который пишет в stdout
+  # этот логгер нельзя настроить через параметры engine
+  # и приходится изолировать его от общего логирования таким образом
+  sqlalchemy:
+    propagate: False
+    handlers:
+      - devnull

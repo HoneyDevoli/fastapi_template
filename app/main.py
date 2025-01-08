@@ -9,7 +9,6 @@ from sqlalchemy.exc import IntegrityError, NoResultFound, ProgrammingError
 from starlette.exceptions import HTTPException
 
 from app.config import exception_config as exh
-from app.config.log_config import config_logging_dev, config_logging_prod
 from app.config.settings import Environment, settings
 from app.entity.main_router import main_router
 from app.utils import db
@@ -18,14 +17,10 @@ from app.utils import db
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     app.state.settings = settings
-    if settings.global_.environment == Environment.prod:
-        config_logging_prod()
-    else:
-        config_logging_dev()
 
     db.check_database_connection()
+
     yield
-    # То что будет выполнено после завершения работы приложения
 
 
 def custom_exception_handler(app: FastAPI):
@@ -61,17 +56,3 @@ def create_application() -> FastAPI:
     )
 
     return application
-
-
-if __name__ == '__main__':
-    import uvicorn
-
-    uvicorn.run(
-        'app.main:create_application',
-        factory=True,
-        host=settings.global_.host,
-        port=settings.global_.port,
-        log_level=settings.log.log_level,
-        access_log=True,
-        reload=settings.is_dev,
-    )
