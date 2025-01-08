@@ -13,6 +13,7 @@ handlers:
     stream: ext://sys.stderr
 
 root:
+  level: DEBUG
   handlers:
     - default
 

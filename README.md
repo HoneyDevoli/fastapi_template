@@ -46,7 +46,7 @@
 2. Запуск дев сервера
    ```bash
    # без релода, в 1 процесс, только веб сервер ювикорна, так легче дебажить
-   uv run uvicorn --factory 'app.main:create_application' --log-level='debug' --log-config='uvicorn_logs_config.yaml'
+   uv run uvicorn --factory 'app.main:create_application' --log-config='uvicorn_logs_config.yaml'
    ```
 
 ### Дополнительные команды для миграций
