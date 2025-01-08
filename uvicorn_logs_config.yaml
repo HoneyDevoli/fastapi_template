@@ -11,8 +11,6 @@ handlers:
     formatter: default
     class: logging.StreamHandler
     stream: ext://sys.stderr
-  devnull:
-    class: logging.NullHandler
 
 root:
   handlers:
@@ -25,5 +23,3 @@ loggers:
   # и приходится изолировать его от общего логирования таким образом
   sqlalchemy:
     propagate: False
-    handlers:
-      - devnull
