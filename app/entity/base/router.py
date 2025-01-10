@@ -17,5 +17,4 @@ async def get_app_info(settings: Settings = Depends(get_settings)):
     return {
         'app_name': settings.global_.app_name,
         'environment': settings.global_.environment,
-        'debug': settings.log.log_level,
     }

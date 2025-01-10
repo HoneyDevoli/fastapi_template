@@ -13,7 +13,7 @@ class BaseSchema(BaseModel):
     __orm__ = None
     __transient_fields__ = ['id', 'created_at', 'updated_at']
 
-    id: int | None = Field(default=None, read_only=True)
+    id: int | None = Field(default=None)
     created_at: datetime | None = Field(default_factory=utc_now)
     updated_at: datetime | None = Field(default_factory=utc_now)
 
